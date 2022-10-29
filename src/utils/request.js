@@ -1,11 +1,12 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-29 11:25:04
- * @LastEditTime: 2022-10-29 14:00:10
+ * @LastEditTime: 2022-10-29 16:14:16
  * @email: webcc.coder@qq.com
  */
 import { Toast } from 'antd-mobile'
 import axios from 'axios'
+import { getTokenInfo } from './token'
 
 export const baseURL = 'http://geek.itheima.net/v1_0/'
 const request = axios.create({
@@ -15,6 +16,10 @@ const request = axios.create({
 
 request.interceptors.request.use(
     function (config) {
+        let token = getTokenInfo().token
+        if (token) {
+            config.headers.Authorization = 'Bearer ' + token
+        }
         return config
     },
     (err) => {

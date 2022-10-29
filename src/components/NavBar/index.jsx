@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-28 16:14:43
- * @LastEditTime: 2022-10-28 16:32:38
+ * @LastEditTime: 2022-10-29 16:30:00
  * @email: webcc.coder@qq.com
  */
 import React from 'react'
@@ -20,7 +20,7 @@ const NavBar = function NavBar({ children, extra }) {
         <div className={styles.root}>
             {/* 后退按钮 */}
             <div className="left" onClick={back}>
-                <Icon type="icon-fanhui1" />
+                <Icon type="iconfanhui" />
             </div>
             {/* 居中标题 */}
             <div className="title">{children}</div>

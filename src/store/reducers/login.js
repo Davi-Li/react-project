@@ -1,7 +1,9 @@
+import { TOKEN } from "../action_types/login"
+
 /*
  * @Author: webcc
  * @Date: 2022-10-29 14:06:35
- * @LastEditTime: 2022-10-29 14:22:37
+ * @LastEditTime: 2022-10-29 22:04:37
  * @email: webcc.coder@qq.com
  */
 let initialValus = {
@@ -10,7 +12,7 @@ let initialValus = {
 }
 export default function login(state = initialValus, action) {
     let { type, payload } = action
-    if (type == "login/token") {
+    if (type == TOKEN) {
         return payload
     }
     return state

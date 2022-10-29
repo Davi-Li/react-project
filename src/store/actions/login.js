@@ -1,11 +1,12 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-29 11:24:37
- * @LastEditTime: 2022-10-29 14:20:47
+ * @LastEditTime: 2022-10-29 22:03:25
  * @email: webcc.coder@qq.com
  */
 import request from '@/utils/request'
 import { setTokenInfo } from '@/utils/token'
+import { TOKEN } from '../action_types/login'
 
 /**
  * 发送验证码
@@ -29,7 +30,7 @@ export const sendCode = (mobile) => {
 
 export const saveToken = (payload) => {
     return {
-        type: 'login/token',
+        type: TOKEN,
         payload
     }
 }
