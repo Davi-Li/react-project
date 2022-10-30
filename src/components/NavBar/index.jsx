@@ -1,17 +1,18 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-28 16:14:43
- * @LastEditTime: 2022-10-30 10:56:16
+ * @LastEditTime: 2022-10-30 22:29:25
  * @email: webcc.coder@qq.com
  */
 import React from 'react'
+import classNames from 'classnames'
 import styles from './index.module.scss'
 import Icon from '@/components/Icon'
 import { useHistory } from 'react-router-dom'
 // withRouter高阶组件可以让非路由组件拥有history
 // hooks： useHistory useParams useLocation
 // import { withRouter } from 'react-router-dom'
-const NavBar = function NavBar({ children, extra, onLeftClick }) {
+const NavBar = function NavBar({ children, extra, className, onLeftClick }) {
     const history = useHistory()
     const back = () => {
         if (onLeftClick) {
@@ -21,7 +22,7 @@ const NavBar = function NavBar({ children, extra, onLeftClick }) {
         }
     }
     return (
-        <div className={styles.root}>
+        <div className={classNames(styles.root, className)}>
             {/* 后退按钮 */}
             <div className="left" onClick={back}>
                 <Icon type="iconfanhui" />
