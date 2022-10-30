@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-29 21:27:09
- * @LastEditTime: 2022-10-29 23:45:31
+ * @LastEditTime: 2022-10-30 17:16:40
  * @email: webcc.coder@qq.com
  */
 import request from '@/utils/request';
@@ -55,7 +55,38 @@ export const getProfile = () => {
             url: '/user/profile',
             method: 'GET',
         })
-        console.log(res)
         dispatch(saveProfile(res.data))
+    }
+}
+
+/**
+ * 修改用户个人信息
+ * @param {*} data 
+ * @returns 
+ */
+export const updateUserProfile = (data) => {
+    return async dispatch => {
+        const res = await request({
+            url: '/user/profile',
+            method: 'PATCH',
+            data
+        })
+        dispatch(getProfile())
+    }
+}
+
+/**
+ * 上传头像
+ * @param {FormData} data 
+ * @returns 
+ */
+export const updatePhoto = (data) => {
+    return async dispatch => {
+        const res = await request({
+            url: '/user/photo',
+            method: 'PATCH',
+            data
+        })
+        dispatch(getProfile())
     }
 }

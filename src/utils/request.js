@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-29 11:25:04
- * @LastEditTime: 2022-10-29 16:14:16
+ * @LastEditTime: 2022-10-30 09:16:43
  * @email: webcc.coder@qq.com
  */
 import { Toast } from 'antd-mobile'
@@ -35,13 +35,9 @@ request.interceptors.response.use(
     function (err) {
         // 错误统一处理
         if (err.response) {
-            Toast.show({
-                content: err.response.data.message,
-            })
+            Toast.info(err.response.data.message, 1);
         } else {
-            Toast.show({
-                content: '网络繁忙，请稍后重试',
-            })
+            Toast.info('网络繁忙，请稍后重试', 1);
         }
         // 返回失败的Promise
         return Promise.reject(err)

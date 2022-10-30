@@ -5,7 +5,7 @@
     .content {
       position: relative;
       z-index: 1;
-      height: 100%;
+      height: 100vh;
     }
 
     .wrapper {
@@ -13,28 +13,28 @@
     }
 
     .profile-list {
-      .adm-list-item {
+      .am-list-item {
         padding-left: 17px;
       }
 
-      .adm-list-line {
+      .am-list-line {
         padding-right: 15px;
       }
 
-      .adm-list-body::before {
+      .am-list-body::before {
         display: none;
       }
 
-      .adm-list-item-content-main {
+      .am-list-content {
         font-size: 14px;
         color: #3a3948;
       }
 
-      .adm-list-line::after {
+      .am-list-line::after {
         background-color: #f0f0f0 !important;
       }
 
-      .adm-list-item-content-extra {
+      .am-list-extra {
         padding-right: 13px;
         font-size: 14px;
         color: #3a3948;
@@ -62,7 +62,7 @@
         }
       }
 
-      .adm-list-arrow {
+      .am-list-arrow {
         width: 8px;
         height: 14px;
       }
@@ -71,13 +71,13 @@
         margin-top: 12px;
       }
 
-      .adm-list-body::after {
+      .am-list-body::after {
         display: none;
       }
     }
 
     .drawer {
-      .adm-drawer-sidebar {
+      .am-drawer-sidebar {
         width: 100%;
         background-color: #fff;
         overflow: auto;
@@ -85,7 +85,7 @@
     }
 
     .drawer-list {
-      .adm-drawer-sidebar {
+      .am-drawer-sidebar {
         height: 174px;
         border-radius: 12px 12px 0 0;
       }
@@ -112,8 +112,8 @@
 
 // popup 不在当前组件结构中，因此，只能设置全局样式
 :global {
-  .adm-picker {
-    .adm-picker-header {
+  .am-picker-popup-body {
+    .am-picker-popup-header {
       background-size: 0;
 
       &::after {
@@ -122,20 +122,17 @@
     }
   }
 
-  .adm-picker-header-title {
-    font-weight: 700;
+  .am-picker-popup-header-left {
+    font-size: 14px;
+    color: #969799;
   }
 
-  .adm-picker-header-button {
+  .am-picker-popup-header-right {
     font-size: 14px;
     color: #fc6627;
-
-    &:first-child {
-      color: #969799;
-    }
   }
 
-  .adm-picker-col-indicator {
+  .am-picker-col-indicator {
     // height: 48px;
   }
 }

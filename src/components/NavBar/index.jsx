@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-28 16:14:43
- * @LastEditTime: 2022-10-29 16:30:00
+ * @LastEditTime: 2022-10-30 10:56:16
  * @email: webcc.coder@qq.com
  */
 import React from 'react'
@@ -11,10 +11,14 @@ import { useHistory } from 'react-router-dom'
 // withRouter高阶组件可以让非路由组件拥有history
 // hooks： useHistory useParams useLocation
 // import { withRouter } from 'react-router-dom'
-const NavBar = function NavBar({ children, extra }) {
+const NavBar = function NavBar({ children, extra, onLeftClick }) {
     const history = useHistory()
     const back = () => {
-        history.go(-1)
+        if (onLeftClick) {
+            onLeftClick();
+        } else {
+            history.go(-1)
+        }
     }
     return (
         <div className={styles.root}>

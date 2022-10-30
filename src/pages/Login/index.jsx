@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-27 00:41:41
- * @LastEditTime: 2022-10-29 16:17:58
+ * @LastEditTime: 2022-10-30 09:18:15
  * @email: webcc.coder@qq.com
  */
 import React, { useState } from 'react'
@@ -34,9 +34,7 @@ export default function Login() {
                 mobile,
                 code
             }))
-            Toast.show({
-                content: '登录成功',
-            })
+            Toast.info('登录成功', 1);
             history.push('/home')
         },
         validationSchema
@@ -62,9 +60,7 @@ export default function Login() {
             return
         }
         await dispatch(sendCode(mobile))
-        Toast.show({
-            content: '发送验证码成功',
-        })
+        Toast.info('发送验证码成功', 1);
         setTime(60)
         let timeId = setInterval(() => {
             if (time == 1) {

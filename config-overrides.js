@@ -1,13 +1,12 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-26 23:55:01
- * @LastEditTime: 2022-10-27 00:38:44
+ * @LastEditTime: 2022-10-30 09:40:38
  * @email: webcc.coder@qq.com
  */
 const path = require('path')
-const { override, addWebpackAlias, addPostcssPlugins } = require('customize-cra')
+const { override, addWebpackAlias, addPostcssPlugins, fixBabelImports } = require('customize-cra')
 const px2viewport = require('postcss-px-to-viewport')
-
 
 const webpackAlias = addWebpackAlias({
     '@': path.resolve(__dirname, 'src'),
@@ -29,4 +28,8 @@ const postcssPlugins = addPostcssPlugins([
 module.exports = override(
     webpackAlias,
     postcssPlugins,
+    fixBabelImports('import', {
+        libraryName: 'antd-mobile',
+        style: 'css',
+    })
 )

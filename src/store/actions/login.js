@@ -1,12 +1,12 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-29 11:24:37
- * @LastEditTime: 2022-10-29 22:03:25
+ * @LastEditTime: 2022-10-30 18:10:50
  * @email: webcc.coder@qq.com
  */
 import request from '@/utils/request'
-import { setTokenInfo } from '@/utils/token'
-import { TOKEN } from '../action_types/login'
+import { removeTokenInfo, setTokenInfo } from '@/utils/token'
+import { LOGOUT, TOKEN } from '../action_types/login'
 
 /**
  * 发送验证码
@@ -49,5 +49,26 @@ export const userLogin = (data) => {
         })
         dispatch(saveToken(res.data))
         setTokenInfo(res.data)
+    }
+}
+
+/**
+ * 清除token
+ * @returns 
+ */
+export const removeToken = () => {
+    return {
+        type: LOGOUT
+    }
+}
+
+/**
+ * 退出登录
+ * @returns 
+ */
+export const logout = () => {
+    return dispatch => {
+        removeTokenInfo()
+        dispatch(removeToken())
     }
 }
