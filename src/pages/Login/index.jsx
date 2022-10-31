@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-27 00:41:41
- * @LastEditTime: 2022-10-30 09:18:15
+ * @LastEditTime: 2022-10-31 19:21:38
  * @email: webcc.coder@qq.com
  */
 import React, { useState } from 'react'
@@ -15,9 +15,11 @@ import * as Yup from 'yup';
 // formik表单校验
 import { useFormik } from 'formik'
 import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
+
 export default function Login() {
     const dispatch = useDispatch();
+    const location = useLocation();
     const history = useHistory();
     const validationSchema = Yup.object({
         mobile: Yup.string().required("手机号不能为空").matches(/^1[3-9]\d{9}$/, "手机号格式不正确"),
@@ -35,7 +37,9 @@ export default function Login() {
                 code
             }))
             Toast.info('登录成功', 1);
-            history.push('/home')
+            console.log(location)
+            let pathname = location.state ? location.state.from : '/home'
+            history.replace(pathname)
         },
         validationSchema
     })

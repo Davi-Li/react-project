@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-29 11:24:37
- * @LastEditTime: 2022-10-30 18:10:50
+ * @LastEditTime: 2022-10-31 17:14:38
  * @email: webcc.coder@qq.com
  */
 import request from '@/utils/request'
@@ -28,6 +28,11 @@ export const sendCode = (mobile) => {
     }
 }
 
+/**
+ * 保存token到redux
+ * @param {token} payload 
+ * @returns 
+ */
 export const saveToken = (payload) => {
     return {
         type: TOKEN,
