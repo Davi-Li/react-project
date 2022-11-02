@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-11-01 15:21:39
- * @LastEditTime: 2022-11-01 16:04:26
+ * @LastEditTime: 2022-11-02 15:25:10
  * @email: webcc.coder@qq.com
  */
 import classnames from 'classnames'
@@ -12,11 +12,16 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 // 引入dayjs国际化
 import 'dayjs/locale/zh-cn'
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { saveMoreAction } from '@/store/actions/home'
 dayjs.extend(relativeTime)
 dayjs.locale('zh-cn')
 
-const ArticleItem = ({ className, article }) => {
+const ArticleItem = ({ className, article, channelId }) => {
     const { cover: { type, images }, aut_name, title, pubdate, comm_count } = article
+    const disPatch = useDispatch()
+    const isLogin = useSelector(state => state.login.token)
     return (
         <div className={styles.root}>
             <div
@@ -43,7 +48,13 @@ const ArticleItem = ({ className, article }) => {
                 <span>{dayjs(pubdate).fromNow()}</span>
 
                 <span className="close">
-                    <Icon type="iconbtn_essay_close" />
+                    {
+                        isLogin && <Icon type="iconbtn_essay_close" onClick={() => disPatch(saveMoreAction({
+                            visible: true,
+                            article_Id: article.art_id,
+                            channelId: channelId
+                        }))} />
+                    }
                 </span>
             </div>
         </div>

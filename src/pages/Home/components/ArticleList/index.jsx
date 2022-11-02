@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-11-01 15:17:36
- * @LastEditTime: 2022-11-01 21:37:54
+ * @LastEditTime: 2022-11-02 15:23:57
  * @email: webcc.coder@qq.com
  */
 import React from 'react'
@@ -58,7 +58,7 @@ export default function ArticleList({ channelId, aid }) {
                         current.list.map(item => {
                             return (
                                 <div className="article-item" key={item.art_id}>
-                                    <ArticleItem className="article-item" article={item}></ArticleItem>
+                                    <ArticleItem channelId={channelId} className="article-item" article={item}></ArticleItem>
                                 </div>
                             )
                         })

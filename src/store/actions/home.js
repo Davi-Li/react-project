@@ -1,14 +1,14 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-31 19:30:35
- * @LastEditTime: 2022-11-01 21:24:37
+ * @LastEditTime: 2022-11-02 16:06:35
  * @email: webcc.coder@qq.com
  */
 import { getLocalChannels, setLocalChannels } from "@/utils/channels"
 import request from "@/utils/request"
 import { hasToken } from "@/utils/token"
 import { date } from "yup/lib/locale"
-import { SAVE_ALL_CHANNELS, SAVE_ARTICLE, SAVE_CHANNEL } from "../action_types/home"
+import { SAVE_ALL_CHANNELS, SAVE_ARTICLE, SAVE_MOREACTION, SAVE_CHANNEL } from "../action_types/home"
 
 /**
  * 将频道列表保存到redux
@@ -156,6 +156,70 @@ export const getArticleList = (channelId, timestamp, loadMore = false) => {
             timestamp: res.data.pre_timestamp,
             list: res.data.results,
             loadMore
+        }))
+    }
+}
+
+/**
+ * 点击插号时存储文章信息
+ * @param {*} payload 
+ * @returns 
+ */
+export const saveMoreAction = (payload) => {
+    return {
+        type: SAVE_MOREACTION,
+        payload
+    }
+}
+
+/**
+ * 对文章不喜欢
+ * @param {文章id} articleId 
+ * @returns 
+ */
+export const unLikeArticle = (articleId) => {
+    return async (dispatch, getState) => {
+        const res = await request({
+            url: '/article/dislikes',
+            method: 'POST',
+            data: {
+                target: articleId
+            }
+        })
+        const channelId = getState().home.moreAction.channelId
+        const articles = getState().home.article[channelId]
+        dispatch(saveArticle({
+            channelId,
+            timestamp: articles.timestamp,
+            list: articles.list.filter(item => item.art_id != articleId),
+            loadMore: false
+        }))
+    }
+}
+
+/**
+ * 举报文章
+ * @param {文章id} articleId 
+ * @param {举报理由id} id 
+ * @returns 
+ */
+export const reportArticle = (articleId, id) => {
+    return async (dispatch, getState) => {
+        const res = await request({
+            url: '/article/reports',
+            method: 'POST',
+            data: {
+                target: articleId,
+                type: id
+            }
+        })
+        const channelId = getState().home.moreAction.channelId
+        const articles = getState().home.article[channelId]
+        dispatch(saveArticle({
+            channelId,
+            timestamp: articles.timestamp,
+            list: articles.list.filter(item => item.art_id != articleId),
+            loadMore: false
         }))
     }
 }

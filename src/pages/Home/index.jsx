@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-29 16:53:27
- * @LastEditTime: 2022-11-01 19:42:02
+ * @LastEditTime: 2022-11-02 14:56:20
  * @email: webcc.coder@qq.com
  */
 import React, { useEffect, useState } from 'react'
@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux'
 import Icon from '@/components/Icon'
 import Channels from './components/Channels'
 import ArticleList from './components/ArticleList'
+import MoreAction from './components/MoreAction'
 
 export default function Home() {
     const dispatch = useDispatch()
@@ -53,6 +54,7 @@ export default function Home() {
                 open={open}
             >
             </Drawer>
+            <MoreAction></MoreAction>
         </div>
     )
 }

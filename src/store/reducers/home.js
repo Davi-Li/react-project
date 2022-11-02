@@ -1,15 +1,20 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-31 19:33:43
- * @LastEditTime: 2022-11-01 21:32:01
+ * @LastEditTime: 2022-11-02 15:26:00
  * @email: webcc.coder@qq.com
  */
-import { SAVE_ALL_CHANNELS, SAVE_ARTICLE, SAVE_CHANNEL } from "../action_types/home"
+import { SAVE_ALL_CHANNELS, SAVE_ARTICLE, SAVE_MOREACTION, SAVE_CHANNEL } from "../action_types/home"
 
 let initialState = {
     userChannel: [],
     allChannels: [],
-    article: {}
+    article: {},
+    moreAction: {
+        visible: false,
+        article_Id: '',
+        channelId: ''
+    }
 }
 
 export default function home(state = initialState, action) {
@@ -37,6 +42,12 @@ export default function home(state = initialState, action) {
                     list: loadMore ? [...state.article[channelId].list, ...list] : list
                 }
             }
+        }
+    }
+    if (type == SAVE_MOREACTION) {
+        return {
+            ...state,
+            moreAction: payload
         }
     }
     return state
