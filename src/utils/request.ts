@@ -1,13 +1,13 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-29 11:25:04
- * @LastEditTime: 2022-10-31 17:36:54
+ * @LastEditTime: 2022-11-03 17:35:24
  * @email: webcc.coder@qq.com
  */
 import store from '@/store'
 import { logout, saveToken } from '@/store/actions/login'
 import { Toast } from 'antd-mobile'
-import axios from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import history from './history'
 import { getTokenInfo, setTokenInfo } from './token'
 
@@ -33,10 +33,10 @@ request.interceptors.request.use(
 )
 
 request.interceptors.response.use(
-    function (res) {
+    function (res: AxiosResponse) {
         return res.data;
     },
-    async function (err) {
+    async function (err: AxiosError<{ message: string }>) {
         // 错误统一处理
         /**
          * 网络问题

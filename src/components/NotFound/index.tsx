@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-31 18:51:05
- * @LastEditTime: 2022-10-31 19:02:42
+ * @LastEditTime: 2022-11-03 23:30:36
  * @email: webcc.coder@qq.com
  */
 import React, { useEffect, useState } from 'react'
@@ -11,7 +11,7 @@ export default function NotFound() {
     const [time, setTime] = useState(3)
     const history = useHistory()
     useEffect(() => {
-        let timer = setTimeout(() => {
+        let timer = window.setTimeout(() => {
             setTime(time - 1)
         }, 1000);
         if (time == 0) {

@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-28 16:14:43
- * @LastEditTime: 2022-10-30 22:29:25
+ * @LastEditTime: 2022-11-03 18:28:58
  * @email: webcc.coder@qq.com
  */
 import React from 'react'
@@ -9,10 +9,19 @@ import classNames from 'classnames'
 import styles from './index.module.scss'
 import Icon from '@/components/Icon'
 import { useHistory } from 'react-router-dom'
+import { ReactElement } from 'react'
 // withRouter高阶组件可以让非路由组件拥有history
 // hooks： useHistory useParams useLocation
 // import { withRouter } from 'react-router-dom'
-const NavBar = function NavBar({ children, extra, className, onLeftClick }) {
+
+type Props = {
+    children: string | ReactElement
+    extra?: string | ReactElement
+    className?: string
+    onLeftClick?: () => void
+}
+
+const NavBar = function NavBar({ children, extra, className, onLeftClick }: Props) {
     const history = useHistory()
     const back = () => {
         if (onLeftClick) {

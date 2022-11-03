@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-27 00:41:41
- * @LastEditTime: 2022-10-31 19:21:38
+ * @LastEditTime: 2022-11-04 00:01:29
  * @email: webcc.coder@qq.com
  */
 import React, { useState } from 'react'
@@ -19,7 +19,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 
 export default function Login() {
     const dispatch = useDispatch();
-    const location = useLocation();
+    const location = useLocation<{ from: string }>();
     const history = useHistory();
     const validationSchema = Yup.object({
         mobile: Yup.string().required("手机号不能为空").matches(/^1[3-9]\d{9}$/, "手机号格式不正确"),
