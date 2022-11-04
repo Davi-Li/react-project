@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-11-01 15:17:36
- * @LastEditTime: 2022-11-02 15:23:57
+ * @LastEditTime: 2022-11-04 19:35:29
  * @email: webcc.coder@qq.com
  */
 import React from 'react'
@@ -12,20 +12,26 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getArticleList } from '@/store/actions/home'
 import { PullToRefresh, InfiniteScroll } from 'antd-mobile-v5'
+import { RootState } from '@/store'
 
-export default function ArticleList({ channelId, aid }) {
+type Props = {
+    channelId: number,
+    aid: number
+}
+
+export default function ArticleList({ channelId, aid }: Props) {
     const dispatch = useDispatch()
-    const current = useSelector(state => state.home.article[channelId])
+    const current = useSelector((state: RootState) => state.home.article[channelId])
     useEffect(() => {
         if (current) return;
         if (aid == channelId) {
-            dispatch(getArticleList(channelId, Date.now()))
+            dispatch(getArticleList(channelId, Date.now() + ''))
         }
     }, [channelId, aid])
     // 下拉刷新
     const onRefresh = async () => {
         setHasMore(true)
-        await dispatch(getArticleList(channelId, Date.now()))
+        await dispatch(getArticleList(channelId, Date.now() + ''))
     }
     // 上拉加载更多数据
     const [hasMore, setHasMore] = useState(true)

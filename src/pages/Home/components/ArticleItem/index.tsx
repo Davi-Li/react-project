@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-11-01 15:21:39
- * @LastEditTime: 2022-11-02 15:25:10
+ * @LastEditTime: 2022-11-04 20:39:35
  * @email: webcc.coder@qq.com
  */
 import classnames from 'classnames'
@@ -15,13 +15,21 @@ import 'dayjs/locale/zh-cn'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { saveMoreAction } from '@/store/actions/home'
+import { RootState } from '@/store'
+import { Article } from '@/store/reducers/home'
 dayjs.extend(relativeTime)
 dayjs.locale('zh-cn')
 
-const ArticleItem = ({ className, article, channelId }) => {
+type Props = {
+    className: string
+    channelId: number
+    article: Article
+}
+
+const ArticleItem = ({ className, article, channelId }: Props) => {
     const { cover: { type, images }, aut_name, title, pubdate, comm_count } = article
     const disPatch = useDispatch()
-    const isLogin = useSelector(state => state.login.token)
+    const isLogin = useSelector((state: RootState) => state.login.token)
     return (
         <div className={styles.root}>
             <div

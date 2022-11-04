@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-31 20:09:56
- * @LastEditTime: 2022-11-04 16:51:52
+ * @LastEditTime: 2022-11-04 19:38:40
  * @email: webcc.coder@qq.com
  */
 import Icon from '@/components/Icon'
@@ -14,6 +14,8 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addChannel, removeChannel } from '@/store/actions/home'
 import { Toast } from 'antd-mobile'
+import { RootState } from '@/store'
+import { Channel } from '@/store/reducers/home'
 
 /**
  * 频道管理组件
@@ -21,11 +23,18 @@ import { Toast } from 'antd-mobile'
  * @param {Function} props.onClose 关闭频道管理抽屉时的回调函数
  * @param {Function} props.onChannelClick 当点击频道列表中的某个频道时的会带哦函数
  */
-const Channels = ({ tabActiveIndex, onClose, onChangeActive }) => {
+
+type Props = {
+    tabActiveIndex: number
+    onClose: () => void
+    onChangeActive: (index: number) => void
+}
+
+const Channels = ({ tabActiveIndex, onClose, onChangeActive }: Props) => {
     const dispatch = useDispatch()
-    const userChannel = useSelector(state => state.home.userChannel)
+    const userChannel = useSelector((state: RootState) => state.home.userChannel)
     const [edit, setEdit] = useState(false)
-    const recommendChannels = useSelector(state => {
+    const recommendChannels = useSelector((state: RootState) => {
         const { userChannel, allChannels } = state.home
         // differenceBy可以返回两个数组之间的差
         return differenceBy(allChannels, userChannel, 'id')
@@ -33,12 +42,12 @@ const Channels = ({ tabActiveIndex, onClose, onChangeActive }) => {
         //     return userChannel.findIndex(v => v.id == item.id) === -1
         // })
     })
-    const onChange = (index) => {
+    const onChange = (index: number) => {
         if (edit) return
         onClose()
         onChangeActive(index)
     }
-    const delChannel = (item, index) => {
+    const delChannel = (item: Channel, index: number) => {
         if (userChannel.length <= 4) {
             Toast.info("至少保留四个频道", 1)
             return;
@@ -51,7 +60,7 @@ const Channels = ({ tabActiveIndex, onClose, onChangeActive }) => {
             onChangeActive(0)
         }
     }
-    const add = async (item) => {
+    const add = async (item: Channel) => {
         // console.log(item)
         await dispatch(addChannel(item))
         Toast.info("添加成功", 1)
