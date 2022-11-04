@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-29 11:25:04
- * @LastEditTime: 2022-11-03 17:35:24
+ * @LastEditTime: 2022-11-04 13:43:33
  * @email: webcc.coder@qq.com
  */
 import store from '@/store'
@@ -9,7 +9,7 @@ import { logout, saveToken } from '@/store/actions/login'
 import { Toast } from 'antd-mobile'
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import history from './history'
-import { getTokenInfo, setTokenInfo } from './token'
+import { getTokenInfo, removeTokenInfo, setTokenInfo } from './token'
 
 
 export const baseURL = 'http://geek.itheima.net/v1_0/'
@@ -91,7 +91,11 @@ request.interceptors.response.use(
             return request(config)
         } catch (error) {
             // 退出登录并返回到登录页
-            store.dispatch(logout())
+            removeTokenInfo()
+            store.dispatch(logout({
+                token: "",
+                refresh_token: "",
+            }))
             history.push({
                 pathname: '/login',
                 state: {

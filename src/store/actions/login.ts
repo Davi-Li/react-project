@@ -1,13 +1,13 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-29 11:24:37
- * @LastEditTime: 2022-11-04 00:08:36
+ * @LastEditTime: 2022-11-04 16:46:35
  * @email: webcc.coder@qq.com
  */
 import request from '@/utils/request'
 import { removeTokenInfo, setTokenInfo } from '@/utils/token'
 import { Dispatch } from 'redux'
-import { LOGOUT, TOKEN } from '../action_types/login'
+import { LoginAction } from '../reducers/login'
 
 /**
  * 发送验证码
@@ -39,9 +39,9 @@ type Token = {
  * @param {token} payload 
  * @returns 
  */
-export const saveToken = (payload: Token) => {
+export const saveToken = (payload: Token): LoginAction => {
     return {
-        type: TOKEN,
+        type: 'login/token',
         payload
     }
 }
@@ -68,23 +68,23 @@ export const userLogin = (data: Login) => {
     }
 }
 
-/**
- * 清除token
- * @returns 
- */
-export const removeToken = () => {
-    return {
-        type: LOGOUT
-    }
-}
+// /**
+//  * 清除token
+//  * @returns 
+//  */
+// export const removeToken = () => {
+//     return {
+//         type: 'login/logout'
+//     }
+// }
 
 /**
  * 退出登录
  * @returns 
  */
-export const logout = () => {
-    return (dispatch: Dispatch) => {
-        removeTokenInfo()
-        dispatch(removeToken())
+export const logout = (payload: Token): LoginAction => {
+    return {
+        type: 'login/token',
+        payload
     }
 }

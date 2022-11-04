@@ -1,23 +1,23 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-31 19:30:35
- * @LastEditTime: 2022-11-02 16:06:35
+ * @LastEditTime: 2022-11-04 16:32:10
  * @email: webcc.coder@qq.com
  */
 import { getLocalChannels, setLocalChannels } from "@/utils/channels"
 import request from "@/utils/request"
 import { hasToken } from "@/utils/token"
-import { date } from "yup/lib/locale"
-import { SAVE_ALL_CHANNELS, SAVE_ARTICLE, SAVE_MOREACTION, SAVE_CHANNEL } from "../action_types/home"
+import { RootThunkAction } from "..";
+import { ArticlePayload, Channel, HomeAction, MoreAction } from "../reducers/home"
 
 /**
  * 将频道列表保存到redux
  * @param {频道列表} payload 
  * @returns 
  */
-export const saveChannel = (payload) => {
+export const saveChannel = (payload: Channel[]): HomeAction => {
     return {
-        type: SAVE_CHANNEL,
+        type: 'home/saveChannel',
         payload
     }
 }
@@ -26,8 +26,8 @@ export const saveChannel = (payload) => {
  * 获取频道列表
  * @returns 
  */
-export const getUserChannel = () => {
-    return async dispatch => {
+export const getUserChannel = (): RootThunkAction => {
+    return async (dispatch) => {
         // 如果登录
         if (hasToken()) {
             const res = await request({
@@ -56,9 +56,9 @@ export const getUserChannel = () => {
  * @param {} payload 
  * @returns 
  */
-export const saveAllChannels = (payload) => {
+export const saveAllChannels = (payload: Channel[]): HomeAction => {
     return {
-        type: SAVE_ALL_CHANNELS,
+        type: 'home/saveAllChannel',
         payload
     }
 }
@@ -67,8 +67,8 @@ export const saveAllChannels = (payload) => {
  * 获取所有频道
  * @returns 
  */
-export const getAllChannels = () => {
-    return async dispatch => {
+export const getAllChannels = (): RootThunkAction => {
+    return async (dispatch) => {
         const res = await request({
             url: '/channels',
             method: 'GET'
@@ -81,7 +81,7 @@ export const getAllChannels = () => {
  * 删除频道
  * @param {*} channel 
  */
-export const removeChannel = (channel) => {
+export const removeChannel = (channel: Channel): RootThunkAction => {
     return async (dispatch, getState) => {
         let result = getState().home.userChannel.filter(item => item.id != channel.id)
         // 如果登录
@@ -105,7 +105,7 @@ export const removeChannel = (channel) => {
  * @param {*} channel 
  * @returns 
  */
-export const addChannel = (channel) => {
+export const addChannel = (channel: Channel): RootThunkAction => {
     return async (dispatch, getState) => {
         let result = [...getState().home.userChannel, channel]
         if (hasToken()) {
@@ -129,9 +129,9 @@ export const addChannel = (channel) => {
  * @param {*} payload 
  * @returns 
  */
-export const saveArticle = (payload) => {
+export const saveArticle = (payload: ArticlePayload): HomeAction => {
     return {
-        type: SAVE_ARTICLE,
+        type: 'home/saveArticle',
         payload
     }
 }
@@ -141,7 +141,7 @@ export const saveArticle = (payload) => {
  * @param {*} channelId 
  * @returns 
  */
-export const getArticleList = (channelId, timestamp, loadMore = false) => {
+export const getArticleList = (channelId: number, timestamp: string, loadMore = false): RootThunkAction => {
     return async dispatch => {
         const res = await request({
             url: '/articles',
@@ -165,9 +165,9 @@ export const getArticleList = (channelId, timestamp, loadMore = false) => {
  * @param {*} payload 
  * @returns 
  */
-export const saveMoreAction = (payload) => {
+export const saveMoreAction = (payload: MoreAction): HomeAction => {
     return {
-        type: SAVE_MOREACTION,
+        type: 'home/saveArticleInfo',
         payload
     }
 }
@@ -177,7 +177,7 @@ export const saveMoreAction = (payload) => {
  * @param {文章id} articleId 
  * @returns 
  */
-export const unLikeArticle = (articleId) => {
+export const unLikeArticle = (articleId: string): RootThunkAction => {
     return async (dispatch, getState) => {
         const res = await request({
             url: '/article/dislikes',
@@ -203,7 +203,7 @@ export const unLikeArticle = (articleId) => {
  * @param {举报理由id} id 
  * @returns 
  */
-export const reportArticle = (articleId, id) => {
+export const reportArticle = (articleId: string, id: number): RootThunkAction => {
     return async (dispatch, getState) => {
         const res = await request({
             url: '/article/reports',

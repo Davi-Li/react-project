@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-31 20:09:56
- * @LastEditTime: 2022-11-01 15:15:42
+ * @LastEditTime: 2022-11-04 16:51:52
  * @email: webcc.coder@qq.com
  */
 import Icon from '@/components/Icon'
@@ -40,7 +40,7 @@ const Channels = ({ tabActiveIndex, onClose, onChangeActive }) => {
     }
     const delChannel = (item, index) => {
         if (userChannel.length <= 4) {
-            Toast.info("至少保留四个频道")
+            Toast.info("至少保留四个频道", 1)
             return;
         }
         dispatch(removeChannel(item))
@@ -54,7 +54,7 @@ const Channels = ({ tabActiveIndex, onClose, onChangeActive }) => {
     const add = async (item) => {
         // console.log(item)
         await dispatch(addChannel(item))
-        Toast.info("添加成功")
+        Toast.info("添加成功", 1)
     }
     return (
         <div className={styles.root}>

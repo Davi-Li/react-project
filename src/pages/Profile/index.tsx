@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-29 16:53:27
- * @LastEditTime: 2022-10-30 09:26:08
+ * @LastEditTime: 2022-11-04 12:09:36
  * @email: webcc.coder@qq.com
  */
 import React, { useEffect } from 'react'
@@ -11,11 +11,13 @@ import styles from './index.module.scss'
 import { useDispatch } from 'react-redux'
 import { getUserInfo } from '@/store/actions/profile'
 import { useSelector } from 'react-redux'
+import { RootState } from '@/store'
 
 export default function Profile() {
     const history = useHistory()
     const dispatch = useDispatch()
-    const userInfo = useSelector(state => state.profile.user)
+    // 泛型参数1：state类型 参数2：返回值类型
+    const userInfo = useSelector<RootState, RootState['profile']['user']>(state => state.profile.user)
     useEffect(() => {
         dispatch(getUserInfo())
     }, [dispatch])

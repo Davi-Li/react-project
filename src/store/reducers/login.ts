@@ -1,9 +1,7 @@
-import { LOGOUT, TOKEN } from "../action_types/login"
-
 /*
  * @Author: webcc
  * @Date: 2022-10-29 14:06:35
- * @LastEditTime: 2022-11-04 00:23:11
+ * @LastEditTime: 2022-11-04 16:43:48
  * @email: webcc.coder@qq.com
  */
 
@@ -12,7 +10,7 @@ type Token = {
     refresh_token: string
 }
 
-type ActionType = {
+export type LoginAction = {
     type: 'login/token' | 'login/logout',
     payload: Token
 }
@@ -21,12 +19,12 @@ let initialValus: Token = {
     token: "",
     refresh_token: "",
 }
-export default function login(state = initialValus, action: ActionType) {
+export default function login(state = initialValus, action: LoginAction) {
     let { type, payload } = action
-    if (type == TOKEN) {
+    if (type == 'login/token') {
         return payload
     }
-    if (type == LOGOUT) {
+    if (type == 'login/logout') {
         return {
             token: "",
             refresh_token: "",

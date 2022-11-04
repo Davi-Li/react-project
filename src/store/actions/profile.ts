@@ -1,20 +1,23 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-29 21:27:09
- * @LastEditTime: 2022-10-30 17:16:40
+ * @LastEditTime: 2022-11-04 16:40:12
  * @email: webcc.coder@qq.com
  */
 import request from '@/utils/request';
-import { SAVE_PROFILE, SAVE_USER } from '../action_types/profile';
+import { RootThunkAction } from '..';
+import { User, ProfileAction, Profile } from '../reducers/profile';
+
+type PartialProfile = Partial<Profile>
 
 /**
  * 保存用户个人信息到redux
  * @param {用户信息} payload 
  * @returns 
  */
-export const saveUserInfo = (payload) => {
+export const saveUserInfo = (payload: User): ProfileAction => {
     return {
-        type: SAVE_USER,
+        type: 'profile/userinfo',
         payload
     }
 }
@@ -23,8 +26,8 @@ export const saveUserInfo = (payload) => {
  * 获取用户自己信息
  * @returns 
  */
-export const getUserInfo = () => {
-    return async dispatch => {
+export const getUserInfo = (): RootThunkAction => {
+    return async (dispatch) => {
         const res = await request({
             url: '/user',
             method: 'GET',
@@ -38,9 +41,9 @@ export const getUserInfo = () => {
  * @param {用户信息} payload 
  * @returns 
  */
-export const saveProfile = (payload) => {
+export const saveProfile = (payload: Profile): ProfileAction => {
     return {
-        type: SAVE_PROFILE,
+        type: 'profile/profile',
         payload
     }
 }
@@ -49,8 +52,8 @@ export const saveProfile = (payload) => {
  * 获取用户个人信息
  * @returns 
  */
-export const getProfile = () => {
-    return async dispatch => {
+export const getProfile = (): RootThunkAction => {
+    return async (dispatch) => {
         const res = await request({
             url: '/user/profile',
             method: 'GET',
@@ -64,8 +67,8 @@ export const getProfile = () => {
  * @param {*} data 
  * @returns 
  */
-export const updateUserProfile = (data) => {
-    return async dispatch => {
+export const updateUserProfile = (data: PartialProfile): RootThunkAction => {
+    return async (dispatch) => {
         const res = await request({
             url: '/user/profile',
             method: 'PATCH',
@@ -80,8 +83,8 @@ export const updateUserProfile = (data) => {
  * @param {FormData} data 
  * @returns 
  */
-export const updatePhoto = (data) => {
-    return async dispatch => {
+export const updatePhoto = (data: FormData): RootThunkAction => {
+    return async (dispatch) => {
         const res = await request({
             url: '/user/photo',
             method: 'PATCH',

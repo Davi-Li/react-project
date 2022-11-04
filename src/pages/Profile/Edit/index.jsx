@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-29 23:09:33
- * @LastEditTime: 2022-10-30 18:16:13
+ * @LastEditTime: 2022-11-04 16:49:02
  * @email: webcc.coder@qq.com
  */
 import React, { useState, useRef } from 'react'
@@ -19,6 +19,7 @@ import EditList from './components/EditList';
 import dayjs from 'dayjs'
 import { logout } from '@/store/actions/login';
 import { useHistory } from 'react-router-dom';
+import { removeTokenInfo } from '@/utils/token';
 
 export default function Edit() {
     let dispatch = useDispatch()
@@ -102,7 +103,11 @@ export default function Edit() {
                 text: '确认',
                 style: { color: '#FC6627' },
                 onPress: () => {
-                    dispatch(logout())
+                    dispatch(logout({
+                        token: "",
+                        refresh_token: "",
+                    }))
+                    removeTokenInfo()
                     Toast.success("退出登录成功", 1)
                     history.replace('/login')
                 }
