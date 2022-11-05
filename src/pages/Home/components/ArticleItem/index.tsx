@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-11-01 15:21:39
- * @LastEditTime: 2022-11-04 20:39:35
+ * @LastEditTime: 2022-11-05 23:23:17
  * @email: webcc.coder@qq.com
  */
 import classnames from 'classnames'
@@ -17,11 +17,12 @@ import { useDispatch } from 'react-redux'
 import { saveMoreAction } from '@/store/actions/home'
 import { RootState } from '@/store'
 import { Article } from '@/store/reducers/home'
+import { useHistory } from 'react-router-dom'
 dayjs.extend(relativeTime)
 dayjs.locale('zh-cn')
 
 type Props = {
-    className: string
+    className?: string
     channelId: number
     article: Article
 }
@@ -29,9 +30,10 @@ type Props = {
 const ArticleItem = ({ className, article, channelId }: Props) => {
     const { cover: { type, images }, aut_name, title, pubdate, comm_count } = article
     const disPatch = useDispatch()
+    const history = useHistory()
     const isLogin = useSelector((state: RootState) => state.login.token)
     return (
-        <div className={styles.root}>
+        <div className={styles.root} onClick={() => { history.push('/article/' + article.art_id) }}>
             <div
                 className={classnames(
                     'article-content',

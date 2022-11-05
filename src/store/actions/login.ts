@@ -1,12 +1,13 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-29 11:24:37
- * @LastEditTime: 2022-11-04 16:46:35
+ * @LastEditTime: 2022-11-04 23:38:35
  * @email: webcc.coder@qq.com
  */
 import request from '@/utils/request'
 import { removeTokenInfo, setTokenInfo } from '@/utils/token'
 import { Dispatch } from 'redux'
+import { RootThunkAction } from '..'
 import { LoginAction } from '../reducers/login'
 
 /**
@@ -56,7 +57,7 @@ type Login = {
  * @param {账号密码} data 
  * @returns 
  */
-export const userLogin = (data: Login) => {
+export const userLogin = (data: Login): RootThunkAction => {
     return async (dispatch: Dispatch) => {
         const res = await request({
             url: '/authorizations',

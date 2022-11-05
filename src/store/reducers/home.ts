@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-31 19:33:43
- * @LastEditTime: 2022-11-04 20:39:32
+ * @LastEditTime: 2022-11-05 22:34:23
  * @email: webcc.coder@qq.com
  */
 export type Channel = {
@@ -20,8 +20,11 @@ export type Article = {
     title: string
     aut_id: string
     aut_name: string
-    comm_count: string
+    comm_count: number
     pubdate: string
+    collect_count?: number
+    is_top?: number
+    like_count?: number
     cover: {
         type: number
         images: string[]

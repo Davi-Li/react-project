@@ -1,8 +1,8 @@
 /*
- * @Author: webcc
+ * @Author: Flockmaster
  * @Date: 2022-10-29 21:34:00
- * @LastEditTime: 2022-11-04 13:02:01
- * @email: webcc.coder@qq.com
+ * @LastEditTime: 2022-11-05 16:37:00
+ * @Language: JavaScript | TypeScript
  */
 
 export type User = {
