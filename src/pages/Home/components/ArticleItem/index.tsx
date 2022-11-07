@@ -1,25 +1,19 @@
 /*
  * @Author: webcc
  * @Date: 2022-11-01 15:21:39
- * @LastEditTime: 2022-11-05 23:23:17
+ * @LastEditTime: 2022-11-06 13:03:52
  * @email: webcc.coder@qq.com
  */
 import classnames from 'classnames'
 import Icon from '@/components/Icon'
 import styles from './index.module.scss'
 import dayjs from 'dayjs'
-// 导入dayjs插件
-import relativeTime from 'dayjs/plugin/relativeTime'
-// 引入dayjs国际化
-import 'dayjs/locale/zh-cn'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { saveMoreAction } from '@/store/actions/home'
 import { RootState } from '@/store'
 import { Article } from '@/store/reducers/home'
 import { useHistory } from 'react-router-dom'
-dayjs.extend(relativeTime)
-dayjs.locale('zh-cn')
 
 type Props = {
     className?: string

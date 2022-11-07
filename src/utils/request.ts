@@ -1,7 +1,7 @@
 /*
  * @Author: webcc
  * @Date: 2022-10-29 11:25:04
- * @LastEditTime: 2022-11-04 13:43:33
+ * @LastEditTime: 2022-11-06 16:49:00
  * @email: webcc.coder@qq.com
  */
 import store from '@/store'
@@ -59,7 +59,7 @@ request.interceptors.response.use(
         const { token, refresh_token } = getTokenInfo();
         // 没有刷新token，直接返回到登录页
         if (!refresh_token) {
-            history.push({
+            history.replace({
                 pathname: '/login',
                 state: {
                     from: history.location.pathname
@@ -96,7 +96,7 @@ request.interceptors.response.use(
                 token: "",
                 refresh_token: "",
             }))
-            history.push({
+            history.replace({
                 pathname: '/login',
                 state: {
                     from: history.location.pathname
