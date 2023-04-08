@@ -1,7 +1,7 @@
 /*
  * @Author: Flockmaster
  * @Date: 2022-11-06 12:46:57
- * @LastEditTime: 2022-11-07 10:42:03
+ * @LastEditTime: 2022-11-07 11:38:30
  * @Language: JavaScript | TypeScript
  */
 import Icon from '@/components/Icon'
@@ -16,19 +16,11 @@ type Props = {
     detail: Comment
     onOpenReply?: (comment: Comment) => void
     type?: string
-    fetchDate?: () => void
+    onLike: (detail: Comment) => void
 }
 
-const CommentItem = ({ detail, onOpenReply, type = "normal", fetchDate }: Props) => {
+const CommentItem = ({ detail, onOpenReply, type = "normal", onLike }: Props) => {
     const dispatch = useDispatch()
-    const onLike = async () => {
-        if (type == 'reply') {
-            await dispatch(likeComment(type, detail.com_id, detail.is_liking))
-            fetchDate && fetchDate()
-        } else {
-            await dispatch(likeComment(type, detail.com_id, detail.is_liking))
-        }
-    }
 
     return (
         <div className={styles.root}>
@@ -45,7 +37,7 @@ const CommentItem = ({ detail, onOpenReply, type = "normal", fetchDate }: Props)
                     {/* 关注或点赞按钮 */}
                     <span className="thumbs-up">
                         {detail.like_count}
-                        <Icon type={detail.is_liking ? 'iconbtn_like_sel' : 'iconbtn_like2'} onClick={onLike} />
+                        <Icon type={detail.is_liking ? 'iconbtn_like_sel' : 'iconbtn_like2'} onClick={() => onLike && onLike(detail)} />
                     </span>
                 </div>
 

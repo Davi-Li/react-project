@@ -1,13 +1,13 @@
 /*
  * @Author: Flockmaster
  * @Date: 2022-11-05 23:25:26
- * @LastEditTime: 2022-11-07 09:10:04
+ * @LastEditTime: 2022-11-07 11:44:48
  * @Language: JavaScript | TypeScript
  */
 import Icon from '@/components/Icon'
 import NavBar from '@/components/NavBar'
 import { RootState } from '@/store'
-import { followAuth, getArticleInfo, getCommentList, getMoreCommentList } from '@/store/actions/article'
+import { followAuth, getArticleInfo, getCommentList, getMoreCommentList, likeComment } from '@/store/actions/article'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
 import { useEffect, useRef, useState } from 'react'
@@ -148,6 +148,13 @@ const Article = () => {
         })
     }
 
+    // 点赞文章评论
+    const onLike = async (commentDetail: Comment) => {
+        await dispatch(likeComment(commentDetail.com_id, commentDetail.is_liking))
+        // 重新获取评论
+        await dispatch(getCommentList(detail.art_id))
+    }
+
     return (
         <div className={styles.root}>
             <div className="root-wrapper">
@@ -222,7 +229,7 @@ const Article = () => {
                             {detail.comm_count == 0 ? (
                                 <NoComment></NoComment>
                             ) : (
-                                comment.results?.map(item => <CommentItem key={item.com_id} detail={item} onOpenReply={onOpenReply}></CommentItem>)
+                                comment.results?.map(item => <CommentItem onLike={onLike} key={item.com_id} detail={item} onOpenReply={onOpenReply}></CommentItem>)
                             )}
                             <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />
                         </div>

@@ -1,7 +1,7 @@
 /*
  * @Author: Flockmaster
  * @Date: 2022-11-05 23:34:34
- * @LastEditTime: 2022-11-07 10:27:11
+ * @LastEditTime: 2022-11-07 11:41:15
  * @Language: JavaScript | TypeScript
  */
 import request from '@/utils/request';
@@ -173,7 +173,7 @@ export const updateComment = (comment: Comment): ArticleAction => {
  * @param com_id 评论id
  * @returns 
  */
-export const likeComment = (type: string, com_id: string, is_liking: boolean): RootThunkAction => {
+export const likeComment = (com_id: string, is_liking: boolean): RootThunkAction => {
     return async (dispatch, getState) => {
         if (is_liking) {
             await request.delete(`/comment/likings/${com_id}`)
@@ -181,9 +181,6 @@ export const likeComment = (type: string, com_id: string, is_liking: boolean): R
             await request.post('/comment/likings', {
                 target: com_id
             })
-        }
-        if (type == 'normal') {
-            dispatch(getCommentList(getState().article.detail.art_id))
         }
     }
 }

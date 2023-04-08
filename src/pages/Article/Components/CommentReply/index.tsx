@@ -1,7 +1,7 @@
 /*
  * @Author: Flockmaster
  * @Date: 2022-11-06 22:03:28
- * @LastEditTime: 2022-11-07 10:44:33
+ * @LastEditTime: 2022-11-07 13:18:32
  * @Language: JavaScript | TypeScript
  */
 import NavBar from '@/components/NavBar'
@@ -10,13 +10,13 @@ import CommentFooter from '../CommentFooter'
 import styles from './index.module.scss'
 import { Comment, CommentType } from '@/store/reducers/article'
 import CommentItem from '../CommentItem'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import request from '@/utils/request'
 import { InfiniteScroll } from 'antd-mobile-v5'
 import { Drawer } from 'antd-mobile'
 import CommentInput from '../CommentInput'
 import { useDispatch } from 'react-redux'
-import { updateComment } from '@/store/actions/article'
+import { getCommentList, likeComment, updateComment } from '@/store/actions/article'
 
 /**
  * 回复评论界面组件
@@ -92,6 +92,13 @@ const CommentReply = ({ articleId, onClose, originComment }: Props) => {
         }))
     }
 
+    // 对评论点赞
+    const onLike = async (commentDetail: Comment) => {
+        await dispatch(likeComment(commentDetail.com_id, commentDetail.is_liking))
+        await fetchDate()
+        await dispatch(getCommentList(articleId))
+    }
+
     return (
         <div className={styles.root}>
             <div className="reply-wrapper">
@@ -101,13 +108,13 @@ const CommentReply = ({ articleId, onClose, originComment }: Props) => {
                 </NavBar>
 
                 {/* 原评论信息 */}
-                <CommentItem fetchDate={fetchDate} detail={originComment} type='reply'></CommentItem>
+                <CommentItem onLike={onLike} detail={originComment} type='reply'></CommentItem>
                 {/* 回复评论的列表 */}
                 <div className="reply-list">
                     <div className="reply-header">全部回复</div>
                     {
                         originComment.reply_count == 0 ? <NoComment /> : (
-                            replyList.results.map(item => <CommentItem fetchDate={fetchDate} type='reply' key={item.com_id} detail={item}></CommentItem>)
+                            replyList.results.map(item => <CommentItem onLike={onLike} type='reply' key={item.com_id} detail={item}></CommentItem>)
                         )
                     }
                     <InfiniteScroll loadMore={loadMore} hasMore={hasMore}></InfiniteScroll>
